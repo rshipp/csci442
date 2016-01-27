@@ -12,6 +12,8 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <sstream>
+#include <string>
+#include <unistd.h>
 
 using namespace std;
 
@@ -63,6 +65,7 @@ int Shell::loop_and_handle_input() {
     // If the command is non-empty, attempt to execute it.
     if (line[0]) {
       return_value = execute_line(line);
+      add_history(line);
     }
 
     // Free the memory for the input string.
@@ -74,8 +77,9 @@ int Shell::loop_and_handle_input() {
 
 
 string Shell::get_prompt(int return_value) {
-  // TODO: YOUR CODE GOES HERE
-  return "prompt > "; // replace with your own code
+  stringstream ss;
+  ss << string(getlogin()) << " " << return_value << " > ";
+  return ss.str();
 }
 
 
