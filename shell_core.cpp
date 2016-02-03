@@ -64,8 +64,25 @@ int Shell::loop_and_handle_input() {
 
     // If the command is non-empty, attempt to execute it.
     if (line[0]) {
+
+      char *expansion;
+      int result;
+
+      result = history_expand(line, &expansion);
+      if (result) {
+        cerr << expansion << endl;
+      }
+
+      if(result < 0 || result == 2) {
+        free(expansion);
+        continue;
+      }
+
+      add_history(expansion);
+      strncpy(line, expansion, sizeof(line) - 1);
+      free(expansion);
+
       return_value = execute_line(line);
-      add_history(line);
     }
 
     // Free the memory for the input string.
