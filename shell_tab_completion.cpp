@@ -17,7 +17,30 @@ using namespace std;
 
 
 void Shell::get_env_completions(const char* text, vector<string>& matches) {
-  // TODO: implement
+  string word = string(text + 1);
+  int i = 0;
+  char* compare;
+  string str;
+  int split;
+
+  // ENV vars
+  while((compare = environ[i++])) {
+    str = string(compare);
+    if(str.substr(0, word.size()) == word.substr(0, word.size())) {
+      split = str.find('=');
+      if(split > 0) {
+        matches.insert(matches.end(), "$" + str.substr(0,split));
+      }
+    }
+  }
+  // local vars
+  map<string,string>::iterator it;
+  for(it = this->localvars.begin(); it != this->localvars.end(); it++) {
+    if((*it).first.substr(0, word.size()) == word.substr(0, word.size())) {
+      matches.insert(matches.end(), "$" + (*it).first);
+    }
+  }
+
 }
 
 
