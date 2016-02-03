@@ -10,6 +10,13 @@
 #include "shell.h"
 #include <cstdlib>
 #include <iostream>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <dirent.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -45,7 +52,31 @@ void Shell::get_env_completions(const char* text, vector<string>& matches) {
 
 
 void Shell::get_command_completions(const char* text, vector<string>& matches) {
-  // TODO: implement
+  string word = string(text);
+  string str;
+  string unsplit_path = string(getenv("PATH") + NULL);
+  vector<string> path;
+  while(unsplit_path.find(':') != string::npos) {
+    path.insert(path.end(), unsplit_path.substr(0, unsplit_path.find(':')));
+    unsplit_path = unsplit_path.substr(unsplit_path.find(':')+1, unsplit_path.size());
+  }
+  path.insert(path.end(), unsplit_path);
+
+  DIR* d;
+  vector<string>::iterator it;
+  for(it = path.begin(); it != path.end(); it++) {
+    d = opendir((*it).c_str());
+    struct dirent * file;
+    while((file = readdir(d)) != NULL) {
+      if((*file).d_type == DT_REG || (*file).d_type == DT_LNK) {
+        str = string((*file).d_name);
+
+        if(str.substr(0, word.size()) == word.substr(0, word.size())) {
+          matches.insert(matches.end(), str);
+        }
+      }
+    }
+  }
 }
 
 
