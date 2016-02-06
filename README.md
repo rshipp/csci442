@@ -38,8 +38,8 @@ command shows both rspec and open4:
 gem list
 ```
 
-Finally, you need to clone this repository somewhere. My commands below you
-clone it in your `$HOME` directory, so make sure to update the commands
+Finally, you need to clone this repository somewhere. My commands below assume
+you clone it in your `$HOME` directory, so make sure to update the commands
 appropriately if you put it somewhere else.
 
 ## Running the tests
