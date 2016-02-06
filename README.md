@@ -20,7 +20,7 @@ your `$PATH` variable.
 gem install --user-install rspec open4
 ```
 
-Appends this to your `~/.bashrc` file:
+Append this to your `~/.bashrc` file:
 
 ```
 if which ruby >/dev/null && which gem >/dev/null; then
@@ -63,8 +63,8 @@ have to update the path to the repository for these commands to work.
 
 ## More options
 
-If you want to use the documentation formatter instead (to give the same format
-of output that I put in your deliverable feedback), the append the following to
+If you want to use the documentation formatter instead (to get the same format
+of output that I put in your deliverable feedback), then append the following to
 the command to run the tests:
 
 `-fd`
@@ -82,7 +82,7 @@ following to the command:
 # Run all tests for deliverables 1 and 2
 --tag d1 --tag d2
 
-# only run tests for the final deliverable (not d1 or d2)
+# Only run tests for the final deliverable (not d1 or d2)
 --tag df
 ```
 
