@@ -28,6 +28,11 @@ if which ruby >/dev/null && which gem >/dev/null; then
 fi
 ```
 
+After you edit your `~/.bashrc` file, you should run the following to load the
+new `$PATH` variable you set:
+
+`. ~/.bashrc`
+
 If you're running these commands on your own machine, you can install the gems
 to the system directory if you want and skip the `.bashrc` change. Your call.
 
