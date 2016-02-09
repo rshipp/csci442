@@ -95,7 +95,7 @@ int Shell::loop_and_handle_input() {
 
 string Shell::get_prompt(int return_value) {
   stringstream ss;
-  ss << string(getlogin()) << " " << return_value << " > ";
+  ss << string(getenv("USER")) << string(" ") << return_value << string(" > ");
   return ss.str();
 }
 
