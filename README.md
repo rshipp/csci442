@@ -40,6 +40,14 @@ To both build and run the program, use:
 
 `make run`
 
+For this starter code, I did my best to ensure that `make` knows all about the
+dependencies for all of the code. So, if you change a file, re-running `make`
+should rebuild everything with your changes. You shouldn't need to run
+`make clean` at all, though you can if you want.
+
+
+## Running the tests
+
 To run the unit tests, type:
 
 `make test`
@@ -52,16 +60,12 @@ submodule so that you're ready to run the tests:
 
 `git submodule update --init`
 
-For this starter code, I did my best to ensure that `make` knows all about the
-dependencies for all of the code. So, if you change a file, re-running `make`
-should rebuild everything with your changes. You shouldn't need to run
-`make clean` at all, though you can if you want.
-
 The tests run using a snapshot of the `proc` filesystem that I took from
 bb136-21. It's included in the repository as `proc.tar.bz2`, which is a
 compressed archive. Using `make test` should automatically decompress and
 unarchive this snapshot and make it available via a symlink in the root of your
-repository.
+repository. The tests are compiled so that they `#define PROC_ROOT = ./proc`,
+while your real binary will be compiled so that it uses the real proc (`/proc`).
 
 On Alamode machines, the snapshot is unarchived under `/dev/shm`, which is an
 in-memory file system. Since it's in memory, it's really fast. Your home
@@ -80,6 +84,43 @@ https://github.com/csm-csci442/proc-snapshot
  - `man 5 proc` - http://linux.die.net/man/5/proc
  - NCURSES Reference - http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
  - `fscanf` reference - http://www.cplusplus.com/reference/cstdio/fscanf/
+
+
+## File structure
+
+Unlike the starter code for the last project, all of the source code for this
+project lives under the `src` directory. All build artifacts are placed under a
+generated `bin` directory, except for the final executable, which is placed
+under the repository root.
+
+Under the `src` directory:
+
+  - `src/info` - Classes and tests that deal with retrieving data from the
+    `/proc` filesystem. This should be the only directory you need to modify for
+    the first deliverable.
+
+  - `src/utils` - Directory where you can place any files containing utility
+    classes. You can also add your own unit tests here, and they should be 
+    automatically included in the `make test` target. My implementation had the
+    additional files under this directory (though you don't have to do the
+    same):
+
+    - `src/utils/flags.{h,cpp} - Code for defining and parsing command-line
+       flags.
+
+    - `src/utils/sort_functions.{h,cpp}` - Code defining comparator functions
+      for ordering processes by PID, memory usage, CPU usage, and time running.
+
+    - `src/utils/statistics.{h,cpp}` - Code related to performing calculations
+      like determining CPU utilization (there aren't too many calculations to
+      do).
+
+    - `src/utils/formatting.{h,cpp}` - Code to help with formatting numbers in
+      readable formats, e.g. human-readably bytes (B, KiB, MiB, GiB, etc) and
+      time strings (seconds, minutes, hours, days, etc).
+
+I also added tests for my classes under `src/utils`. This is completely
+optional, but the infrastructure is all set up if you want to add some.
 
 
 ## Coding on a Mac
