@@ -73,6 +73,8 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
+TEST_FILTER = '*'
+
 # Default target. Build your 'mytop' program, using the real /proc filesystem.
 $(NAME): PROC_ROOT = /proc
 $(NAME): $(MAIN_OBJS) $(OTHER_OBJS) $(INFO_IMPL_OBJS)
@@ -80,7 +82,7 @@ $(NAME): $(MAIN_OBJS) $(OTHER_OBJS) $(INFO_IMPL_OBJS)
 
 # Build and run the unit tests.
 test: bin/all_tests | proc
-	./bin/all_tests
+	./bin/all_tests --gtest_filter=$(TEST_FILTER)
 
 # Build and run the program. Only useful on Linux machines
 run: $(NAME)

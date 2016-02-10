@@ -79,12 +79,29 @@ The snapshot is also available as a repository here:
 https://github.com/csm-csci442/proc-snapshot
 
 
+## Running specific tests
+
+If you're working on implementing a specific feature, you can filter the tests
+that get run to just the ones of interest.
+
+For example, to only show tests in the `GetMemoryInfo` suite (which includes all
+the tests for `memory_info_tests.cpp`), you could run the following:
+
+`make test TEST_FILTER=GetMemoryInfo.*`
+
+If you want to run just a single test (like `GetMemoryInfo.FreeMemory`), you
+could run the following:
+
+`make test TEST_FILTER=GetMemoryInfo.FreeMemory`
+
+
 ## Useful links
 
  - `man 5 proc` - http://linux.die.net/man/5/proc
  - NCURSES Reference - http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
  - `fscanf` reference - http://www.cplusplus.com/reference/cstdio/fscanf/
  - `getopt` reference - http://www.gnu.org/software/libc/manual/html_node/Getopt.html
+ - Google Test - https://github.com/google/googletest/blob/master/googletest/docs/Primer.md
 
 
 ## File structure
