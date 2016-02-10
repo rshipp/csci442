@@ -53,7 +53,7 @@ To run the unit tests, type:
 `make test`
 
 The first time you run the tests after cloning the code, you'll be prompted to
-initialize the `googletest` Git submodule. If you typically access GitHub
+initialize the `googletest` submodule. If you typically access GitHub
 via HTTPS rather than SSH, you'll need to update the URL in the `.gitmodules`
 file prior to this step. The following command will set up the `googletest`
 submodule so that you're ready to run the tests:
@@ -71,7 +71,7 @@ On Alamode machines, the snapshot is unarchived under `/dev/shm`, which is an
 in-memory file system. Since it's in memory, it's really fast. Your home
 directory on Alamode machines is on a file server somewhere (not local to the
 machine), so it's really really slow. On a personal computer, the snapshot is
-simply placed in your $TMPDIR. It's not as fast as an in-memory file system, but
+simply placed in your `$TMPDIR`. It's not as fast as an in-memory file system, but
 at least it's not on some remote file server.
 
 The snapshot is also available as a repository here:
@@ -101,11 +101,11 @@ Under the `src` directory:
 
   - `src/utils` - Directory where you can place any files containing utility
     classes. You can also add your own unit tests here, and they should be 
-    automatically included in the `make test` target. My implementation had the
-    additional files under this directory (though you don't have to do the
+    automatically included in the `make test` target. My implementation had
+    these additional files under this directory (though you don't have to do the
     same):
 
-    - `src/utils/flags.{h,cpp} - Code for defining and parsing command-line
+    - `src/utils/flags.{h,cpp}` - Code for defining and parsing command-line
        flags.
 
     - `src/utils/sort_functions.{h,cpp}` - Code defining comparator functions
@@ -119,20 +119,30 @@ Under the `src` directory:
       readable formats, e.g. human-readably bytes (B, KiB, MiB, GiB, etc) and
       time strings (seconds, minutes, hours, days, etc).
 
+  - `src/*` (including `main.cpp`) - Any code you place directly under the `src`
+    directory will be compiled slightly differently by default: NCURSES will be
+    linked in, and unit tests placed here will not be included in `make test` by
+    default. Any NCURSES code you add (such as calls to `printw` and `timeout`)
+    should go at this level.
+
 I also added tests for my classes under `src/utils`. This is completely
-optional, but the infrastructure is all set up if you want to add some.
+optional, but the infrastructure is all set up if you want to add some. Unit
+tests are a great way to prove to yourself that your code is working like it
+should. Use the existing tests as examples, and you'll see that they're not very
+hard to do.
 
 
 ## Coding on a Mac
 
 You can build this program on a Mac, but since the `/proc` filesystem is a Linux
 construct, your finished product won't work correctly under OS X. That doesn't
-mean you can't do much of your work on your Mac.
+mean you can't do much of your work on your Mac, though.
 
 All of deliverable 1, which is simply getting unit tests to pass, is feasible.
 Likewise, since much of your work for the final deliverable is just displaying
-data, you can work with fake data to get things looking right. Once you're ready
-to test your program for real, though, you need to work on a Linux machine.
+data, you can work with fake data to get things looking right. Unfortunately,
+once you're ready to test your program for real, you'll need to work on a Linux
+machine.
 
 As always, you need to check that your program compiles and runs on Alamode
 machines prior to submitting them.
