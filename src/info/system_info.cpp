@@ -11,10 +11,12 @@ using namespace std;
 
 
 double get_uptime() {
+  // TODO: implement me
   return 0.0;
 }
 
 
 SystemInfo get_system_info() {
+  // TODO: implement me
   return SystemInfo();
 }
