@@ -84,6 +84,7 @@ https://github.com/csm-csci442/proc-snapshot
  - `man 5 proc` - http://linux.die.net/man/5/proc
  - NCURSES Reference - http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
  - `fscanf` reference - http://www.cplusplus.com/reference/cstdio/fscanf/
+ - `getopt` reference - http://www.gnu.org/software/libc/manual/html_node/Getopt.html
 
 
 ## File structure
@@ -97,7 +98,8 @@ Under the `src` directory:
 
   - `src/info` - Classes and tests that deal with retrieving data from the
     `/proc` filesystem. This should be the only directory you need to modify for
-    the first deliverable.
+    the first deliverable. Any code that reads from the proc file system should
+    go in here.
 
   - `src/utils` - Directory where you can place any files containing utility
     classes. You can also add your own unit tests here, and they should be 
@@ -106,7 +108,7 @@ Under the `src` directory:
     same):
 
     - `src/utils/flags.{h,cpp}` - Code for defining and parsing command-line
-       flags.
+       flags via getopt.
 
     - `src/utils/sort_functions.{h,cpp}` - Code defining comparator functions
       for ordering processes by PID, memory usage, CPU usage, and time running.
@@ -121,15 +123,15 @@ Under the `src` directory:
 
   - `src/*` (including `main.cpp`) - Any code you place directly under the `src`
     directory will be compiled slightly differently by default: NCURSES will be
-    linked in, and unit tests placed here will not be included in `make test` by
-    default. Any NCURSES code you add (such as calls to `printw` and `timeout`)
-    should go at this level.
+    linked in, and unit tests placed here will not be included in `make test`.
+    Any NCURSES code you add (such as calls to `printw` and `timeout`) should go
+    at this level.
 
 I also added tests for my classes under `src/utils`. This is completely
-optional, but the infrastructure is all set up if you want to add some. Unit
-tests are a great way to prove to yourself that your code is working like it
-should. Use the existing tests as examples, and you'll see that they're not very
-hard to do.
+optional, but the infrastructure is all set up if you want to add some of your
+own. Unit tests are a great way to prove to yourself that your code is working
+like it should. Use the existing tests as examples, and you'll see that they're
+not very hard to do.
 
 
 ## Coding on a Mac
