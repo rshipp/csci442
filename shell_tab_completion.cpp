@@ -68,6 +68,9 @@ void Shell::get_command_completions(const char* text, vector<string>& matches) {
   vector<string>::iterator it;
   for(it = path.begin(); it != path.end(); it++) {
     d = opendir((*it).c_str());
+    if(!d) {
+      continue;
+    }
     struct dirent * file;
     while((file = readdir(d)) != NULL) {
       if((*file).d_type == DT_REG || (*file).d_type == DT_LNK) {
