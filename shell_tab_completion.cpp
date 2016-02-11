@@ -54,6 +54,8 @@ void Shell::get_env_completions(const char* text, vector<string>& matches) {
 void Shell::get_command_completions(const char* text, vector<string>& matches) {
   string word = string(text);
   string str;
+
+  // commands on the PATH
   string unsplit_path = string(getenv("PATH") + NULL);
   vector<string> path;
   while(unsplit_path.find(':') != string::npos) {
@@ -77,6 +79,23 @@ void Shell::get_command_completions(const char* text, vector<string>& matches) {
       }
     }
   }
+
+  // aliases
+  map<string,string>::iterator al_it;
+  for(al_it = this->aliases.begin(); al_it != this->aliases.end(); al_it++) {
+    if((*al_it).first.substr(0, word.size()) == word.substr(0, word.size())) {
+      matches.insert(matches.end(), (*al_it).first);
+    }
+  }
+
+  // builtins
+  map<string,builtin_t>::iterator b_it;
+  for(b_it = this->builtins.begin(); b_it != this->builtins.end(); b_it++) {
+    if((*b_it).first.substr(0, word.size()) == word.substr(0, word.size())) {
+      matches.insert(matches.end(), (*b_it).first);
+    }
+  }
+
 }
 
 
