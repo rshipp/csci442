@@ -20,7 +20,6 @@ bool partition_tokens(vector<string> tokens, vector<command_t>& commands) {
 
   vector<string>::iterator it;
   for(it = tokens.begin(); it != tokens.end(); it++) {
-    cout << (*it) << endl;
     token = string(*it);
 
     if(token == string("|")) {
