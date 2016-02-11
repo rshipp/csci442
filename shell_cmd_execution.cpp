@@ -20,7 +20,7 @@ using namespace std;
 
 
 int Shell::execute_external_command(vector<string>& tokens) {
-  int pid; // process ID
+  int pid, status; // process ID / exit status
 
   // Attempt to fork off a new process.
   if ((pid = fork()) == -1) {
@@ -52,8 +52,8 @@ int Shell::execute_external_command(vector<string>& tokens) {
   // fork() returns the child process' process ID (PID) in the parent process.
   } else {
     // Wait for the child process to finish executing.
-    waitpid(pid, NULL, 0);
+    waitpid(pid, &status, 0);
   }
 
-  return 0;
+  return WEXITSTATUS(status);
 }

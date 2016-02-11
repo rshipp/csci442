@@ -167,7 +167,9 @@ void Shell::local_variable_assignment(vector<string>& tokens) {
 
 
 void Shell::alias_substitution(vector<string>& tokens) {
-  // TODO: implement alias handling
+  if(this->aliases.count(tokens[0])) {
+    tokens[0] = this->aliases[tokens[0]];
+  }
 }
 
 
