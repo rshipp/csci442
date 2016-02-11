@@ -8,4 +8,4 @@ install:
   - make
   - git clone https://github.com/csm-csci442/project-1-specs.git
 script: 
-  - SHELL_DIR=$(pwd) rspec project-1-specs/spec/shell_spec.rb -c --tag d1 --tag d2 -fd
+  - SHELL_DIR=$(pwd) rspec project-1-specs/spec/shell_spec.rb -c -fd
