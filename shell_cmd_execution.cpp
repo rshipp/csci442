@@ -8,6 +8,7 @@
  */
 
 #include "shell.h"
+#include "shell_partitioning.h"
 #include <iostream>
 #include <errno.h>
 #include <stdlib.h>
