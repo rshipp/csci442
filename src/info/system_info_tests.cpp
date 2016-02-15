@@ -61,6 +61,16 @@ TEST(GetSystemInfo, LoadAverageInfo) {
 }
 
 
+TEST(GetSystemInfo, MemoryInfo) {
+  SystemInfo sysinfo = get_system_info();
+  MemoryInfo memory_info = get_memory_info();
+
+  EXPECT_EQ(memory_info.total_memory, sysinfo.memory_info.total_memory);
+  EXPECT_EQ(memory_info.free_memory, sysinfo.memory_info.free_memory);
+  EXPECT_EQ(memory_info.cached_memory, sysinfo.memory_info.cached_memory);
+}
+
+
 TEST(GetSystemInfo, CpuInfo) {
   SystemInfo sysinfo = get_system_info();
   vector<CpuInfo> cpus = get_cpu_info();

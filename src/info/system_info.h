@@ -47,6 +47,11 @@ struct SystemInfo {
   LoadAverageInfo load_average;
 
   /**
+   * The state of the system's memory.
+   */
+  MemoryInfo memory_info;
+
+  /**
    * Information about the time each CPU (and the CPUs overall) have spent in
    * various states
    */

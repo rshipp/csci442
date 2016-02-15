@@ -325,7 +325,9 @@ struct ProcessInfo {
   std::vector<ProcessInfo> threads;
 
   /**
-   * The percentage of a single CPU used by this process in the last
+   * The percentage of a single CPU used by this process over some period. You
+   * will need to calculate this value using a delta between the process at two
+   * different points in time.
    */
   double cpu_percent;
 
