@@ -1,6 +1,7 @@
 #pragma once
 #include "cpu_info.h"
 #include "load_average_info.h"
+#include "memory_info.h"
 #include "process_info.h"
 #include <vector>
 
