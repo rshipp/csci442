@@ -1,0 +1,4 @@
+language: c
+script:
+  - git submodule update --int
+  - make test
