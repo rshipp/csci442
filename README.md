@@ -1,5 +1,7 @@
 # Project 2 - Custom Top Implementation
 
+[![Build Status](https://travis-ci.com/csm-csci442/rshipp-project-2.svg?token=FJogqyqK8RU7kNYsMrnC&branch=master)](https://travis-ci.com/csm-csci442/rshipp-project-2)
+
 The goal of this project is to implement a `top(1)`-like command for gleaning
 information about a Linux system. For a general idea of the type of program
 you'll implement, try running the real `top` executable on an Alamode machine.
