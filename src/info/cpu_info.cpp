@@ -43,6 +43,16 @@ vector<CpuInfo> get_cpu_info() {
 
 
 CpuInfo operator -(const CpuInfo& lhs, const CpuInfo& rhs) {
-  // TODO: implement me
-  return CpuInfo();
+  CpuInfo delta;
+  delta.user_time = lhs.user_time - rhs.user_time;
+  delta.nice_time = lhs.nice_time - rhs.nice_time;
+  delta.system_time = lhs.system_time - rhs.system_time;
+  delta.idle_time = lhs.idle_time - rhs.idle_time;
+  delta.io_wait_time = lhs.io_wait_time - rhs.io_wait_time;
+  delta.irq_time = lhs.irq_time - rhs.irq_time;
+  delta.softirq_time = lhs.softirq_time - rhs.softirq_time;
+  delta.steal_time = lhs.steal_time - rhs.steal_time;
+  delta.guest_time = lhs.guest_time - rhs.guest_time;
+  delta.guest_nice_time = lhs.guest_nice_time - rhs.guest_nice_time;
+  return delta;
 }
