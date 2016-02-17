@@ -19,19 +19,23 @@ MemoryInfo get_memory_info() {
 
   while (getline(meminfo_file, line)) {
     if(line.find("MemTotal:") == 0) {
-      memory_info.total_memory = atoi(line.substr(string("MemTotal:").size(), line.size()).c_str());
+      memory_info.total_memory = int_from_line(line, "MemTotal:");
     } else if(line.find("MemFree:") == 0) {
-      memory_info.free_memory = atoi(line.substr(string("MemFree:").size(), line.size()).c_str());
+      memory_info.free_memory = int_from_line(line, "MemFree:");
     } else if(line.find("Buffers:") == 0) {
-      memory_info.buffers_memory = atoi(line.substr(string("Buffers:").size(), line.size()).c_str());
+      memory_info.buffers_memory = int_from_line(line, "Buffers:");
     } else if(line.find("Cached:") == 0) {
-      memory_info.cached_memory = atoi(line.substr(string("Cached:").size(), line.size()).c_str());
+      memory_info.cached_memory = int_from_line(line, "Cached:");
     } else if(line.find("SwapTotal:") == 0) {
-      memory_info.total_swap = atoi(line.substr(string("SwapTotal:").size(), line.size()).c_str());
+      memory_info.total_swap = int_from_line(line, "SwapTotal:");
     } else if(line.find("SwapFree:") == 0) {
-      memory_info.free_swap = atoi(line.substr(string("SwapFree:").size(), line.size()).c_str());
+      memory_info.free_swap = int_from_line(line, "SwapFree:");
     }
   }
 
   return memory_info;
+}
+
+int int_from_line(string line, const char* label) {
+   return atoi(line.substr(string(label).size(), line.size()).c_str());
 }

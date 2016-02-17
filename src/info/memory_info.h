@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 
 /**
@@ -44,3 +45,7 @@ struct MemoryInfo {
  * the system's memory usage and available memory.
  */
 MemoryInfo get_memory_info();
+
+/** Returns integer value from a line with the label.
+ */
+int int_from_line(std::string line, const char* label);
