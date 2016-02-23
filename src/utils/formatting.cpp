@@ -46,7 +46,6 @@ string humanize_uptime(float seconds) {
     sprintf(uptime, "%02d:%02d:%02d", hh, mm, ss);
   }
   return string(uptime);
-
 }
 
 string to_string(long num) {
