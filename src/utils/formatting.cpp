@@ -1,5 +1,6 @@
 #include "formatting.h"
 #include <stdio.h>
+#include <unistd.h>
 #include <sstream>
 
 using namespace std;
@@ -16,8 +17,25 @@ string humanize_bytes(long bytes) {
   }
 }
 
-string humanize_time(int ticks) {
-  return string();
+string humanize_time(long ticks) {
+  long seconds = ticks * sysconf(_SC_CLK_TCK);
+  char uptime[100];
+  int ss = 0, mm = 0, hh = 0;
+
+  if (seconds < 60) {
+    ss = seconds;
+  } else if(seconds < 60*60) {
+    mm = seconds/60;
+    ss = (int)seconds % 60;
+  } else {
+    hh = seconds/(60*60);
+    mm = (int)seconds % (60*60) / 60;
+    ss = (int)seconds  % 60;
+  }
+
+  sprintf(uptime, "%02d:%02d:%02d", hh, mm, ss);
+
+  return string(uptime);
 }
 
 string humanize_uptime(float seconds) {

@@ -4,7 +4,7 @@
 
 std::string humanize_bytes(long bytes);
 
-std::string humanize_time(int ticks);
+std::string humanize_time(long ticks);
 
 std::string humanize_uptime(float seconds);
 
