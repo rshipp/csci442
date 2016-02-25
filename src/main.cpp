@@ -8,6 +8,8 @@
 #include <ncurses.h>
 #include "info/system_info.h"
 #include "utils/formatting.h"
+#include "utils/flags.h"
+#include "utils/sort_functions.h"
 
 using namespace std;
 
@@ -55,7 +57,10 @@ map<int, ProcessInfo> make_process_map(vector<ProcessInfo> processes) {
 /**
  * Entry point for the program.
  */
-int main() {
+int main(int argc, char** argv) {
+  // parse args
+  Options options = parse_args(argc, argv);
+
   // ncurses initialization
   initscr();
 
@@ -64,9 +69,7 @@ int main() {
 
   // Set getch to return after 1000 milliseconds; this allows the program to
   // immediately respond to user input while not blocking indefinitely.
-  timeout(1000);
-
-  int tick = 1;
+  timeout(options.delay * 100);
 
   SystemInfo prev_system;
   SystemInfo system = get_system_info();
@@ -76,13 +79,16 @@ int main() {
     // Get system info
     prev_system = system;
     system = get_system_info();
-
+    
 
     // Calculate CPU utilization
     CpuInfo diff = system.cpus[1] - prev_system.cpus[1];
     unsigned long long delta_ticks = diff.total_time();
     // Calculate CPU utilization for each process
     set_cpu_utilization(system.processes, make_process_map(prev_system.processes), delta_ticks);
+
+    // sort
+    sortProcesses(system.processes, options.sort);
 
     // CURSES
     // uptime

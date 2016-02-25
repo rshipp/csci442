@@ -17,8 +17,8 @@ string humanize_bytes(long bytes) {
   }
 }
 
-string humanize_time(long ticks) {
-  long seconds = ticks * sysconf(_SC_CLK_TCK);
+string humanize_time(unsigned long ticks) {
+  long seconds = ticks / sysconf(_SC_CLK_TCK);
   char uptime[100];
   int ss = 0, mm = 0, hh = 0;
 
