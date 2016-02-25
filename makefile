@@ -4,7 +4,7 @@
 # To clean up and remove the compiled binary and other generated files, type:
 #   make clean
 #
-# To build AND run the shell, type:
+# To build AND run the program, type:
 #   make run
 #
 

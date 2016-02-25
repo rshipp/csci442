@@ -11,9 +11,13 @@ repo. It's simple and takes care of the following:
       will only rebuild the things that changed as a result.
 
  - All the intermediate objects and artifacts are placed in an auto-generated
-   `bin` directory
+   `bin` directory.
 
  - `make clean` will remove the binary (`simulator`) and the `bin/` directory.
+
+ - Uses C++11 by default.
+
+ - Compiles with debugging symbols (`-g`) so you can debug your program.
 
 There's also a `.gitignore` file that ignores the appropriate things. Feel free
 to use it. Or not.
