@@ -19,7 +19,7 @@ SRCS = $(shell find src -name '*.cpp')
 OBJS = $(SRCS:src/%.cpp=bin/%.o)
 DEPS = $(SRCS:src/%.cpp=bin/%.d)
 
-# Default target. Build your 'mytop' program, using the real /proc filesystem.
+# Default target, which builds your binary.
 $(NAME): $(OBJS)
 	$(CXX) $(CPP_FLAGS) $^ -o $(NAME)
 
