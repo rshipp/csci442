@@ -20,19 +20,18 @@ Config parse_config(string in_file) {
     exit(EXIT_FAILURE);
   }
 
-  istringstream iss(line);
-  iss >> config.num_processes
-      >> config.thread_switch_overhead
-      >> config.process_switch_overhead;
+  int num_processes;
+  fs >> num_processes
+     >> config.thread_switch_overhead
+     >> config.process_switch_overhead;
 
-  //config.processes = vector<Process>();
-  for(int i=0; i<config.num_processes; i++) {
+  for(int i=0; i<num_processes; i++) {
     Process process;
     
     int num_threads, process_type;
-    iss >> process.pid
-        >> process_type
-        >> num_threads;
+    fs >> process.pid
+       >> process_type
+       >> num_threads;
     switch(process_type) {
         case SYSTEM:
             process.type = SYSTEM;
@@ -54,8 +53,8 @@ Config parse_config(string in_file) {
       thread.process = &process;
 
       int num_cpu_bursts;
-      iss >> thread.arrival_time
-          >> num_cpu_bursts;
+      fs >> thread.arrival_time
+         >> num_cpu_bursts;
 
       bool cpuType = true;
       //thread.bursts = queue<Burst>();
@@ -70,7 +69,7 @@ Config parse_config(string in_file) {
         cpuType = !cpuType;
 
         int burst_length;
-        iss >> burst_length;
+        fs >> burst_length;
 
         Burst *burst = new Burst(burst_type, burst_length);
 

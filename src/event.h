@@ -9,7 +9,7 @@ struct Event {
   /**
    * The type of the event.
    */
-  enum Type {
+  enum EventType {
     /**
      * A thread was created in the system.
      */
@@ -55,7 +55,7 @@ struct Event {
   /**
    * The type of event.
    */
-  Type type;
+  EventType type;
 
   /**
    * The time at which the event occurs.
@@ -71,4 +71,21 @@ struct Event {
    * The associated scheduling decision, if any.
    */
   const SchedulingDecision* scheduling_decision;
+
+  /**
+   * Creates an event
+   */
+  Event(EventType type, int time, Thread* thread) : type(type), time(time) , thread(thread) {}
+};
+
+/**
+ * Comparator for std::priority_queue to correctly order event pointers.
+ *
+ * The priority queue puts the 'greatest' element at the front, so smaller times
+ * should be considered 'greater' for the purpose of this function.
+ */
+struct EventComparator {
+  bool operator()(const Event* e1, const Event* e2) {
+     return e1->time >= e2->time;
+  }
 };
