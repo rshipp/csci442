@@ -3,18 +3,19 @@
 #include <vector>
 
 /**
+ * The type of the process (representing its relative priority).
+ */
+enum ProcessType {
+  SYSTEM = 0,
+  INTERACTIVE = 1,
+  NORMAL = 2,
+  BATCH = 3
+};
+
+/**
  * Represents a simple process, which encapsulates one or more threads.
  */
 struct Process {
-  /**
-   * The type of the process (representing its relative priority).
-   */
-  enum Type {
-    SYSTEM,
-    INTERACTIVE,
-    NORMAL,
-    BATCH
-  };
 
   /**
    * The ID of this process.
@@ -24,7 +25,7 @@ struct Process {
   /**
    * The type of the process.
    */
-  Type type;
+  ProcessType type;
 
   /**
    * All threads belonging to this process (as pointers).

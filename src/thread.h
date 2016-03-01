@@ -8,20 +8,21 @@
 struct Process;
 
 /**
+ * Represents valid states in which threads / processes can exist.
+ */
+enum State {
+  NEW,
+  READY,
+  RUNNING,
+  BLOCKED,
+  EXIT
+};
+
+
+/**
  * Represents a thread of execution, with one or more CPU + I/O bursts.
  */
 struct Thread {
-  /**
-   * Represents valid states in which threads / processes can exist.
-   */
-  enum State {
-    NEW,
-    READY,
-    RUNNING,
-    BLOCKED,
-    EXIT
-  };
-
   /**
    * The ID of this thread
    */
@@ -46,6 +47,11 @@ struct Thread {
    * The previous state of the thread.
    */
   State previous_state;
+
+  /**
+   * The time at which this thread arrived in the queue.
+   */
+  size_t arrival_time = -1;
 
   /**
    * The time at which this thread was first executed.

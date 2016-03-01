@@ -1,3 +1,4 @@
 simulator
 *.dSYM
+*.gch
 bin/

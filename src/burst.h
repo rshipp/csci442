@@ -1,21 +1,21 @@
 #pragma once
 
 /**
+ * The type of the burst.
+ */
+enum BurstType {
+  CPU,
+  IO
+};
+
+/**
 * Simple struct representing a CPU or IO burst.
 */
 struct Burst {
   /**
-   * The type of the burst.
-   */
-  enum Type {
-    CPU,
-    IO
-  };
-
-  /**
    * The type of burst.
    */
-  Type type;
+  BurstType type;
 
   /**
    * The length of the burst.
@@ -25,5 +25,5 @@ struct Burst {
   /**
    * Creates a burst of the given type and length.
    */
-  Burst(Type type, size_t length) : type(type), length(length) {}
+  Burst(BurstType type, size_t length) : type(type), length(length) {}
 };
