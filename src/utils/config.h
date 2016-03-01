@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-#include "process.h"
+#include "abstract/process.h"
 
 struct Config {
   int thread_switch_overhead;

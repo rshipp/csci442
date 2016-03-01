@@ -1,6 +1,6 @@
 #include "config.h"
-#include "burst.h"
-#include "process.h"
+#include "abstract/burst.h"
+#include "abstract/process.h"
 #include <fstream>
 #include <iostream>
 #include <string>

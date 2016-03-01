@@ -1,8 +1,8 @@
 #include <iostream>
 #include <queue>
-#include "flags.h"
-#include "config.h"
-#include "event.h"
+#include "utils/flags.h"
+#include "utils/config.h"
+#include "abstract/event.h"
 
 using namespace std;
 
