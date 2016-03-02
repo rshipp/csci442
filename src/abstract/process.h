@@ -1,6 +1,7 @@
 #pragma once
 #include "thread.h"
 #include <vector>
+#include <string>
 
 /**
  * The type of the process (representing its relative priority).
@@ -32,3 +33,5 @@ struct Process {
    */
   std::vector<Thread*> threads;
 };
+
+std::string process_type_str(ProcessType num);

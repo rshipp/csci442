@@ -7,7 +7,7 @@ struct Config {
 
   int process_switch_overhead;
 
-  std::vector<Process> processes;
+  std::vector<Process*> processes;
 };
 
 Config parse_config(std::string in_file);
