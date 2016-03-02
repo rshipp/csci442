@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
     cout << "    " << event_type_str(event->type) << endl;
     cout << "    Thread " << event->thread->id << " in process " << event->thread->process->pid << " [" << process_type_str(event->thread->process->type) << "]" << endl;
     cout << "    Transitioned from NEW to READY" << endl;
+    cout << endl;
   }
   return 0;
 }
