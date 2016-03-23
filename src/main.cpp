@@ -4,6 +4,7 @@
 #include "utils/config.h"
 #include "abstract/event.h"
 #include "abstract/process.h"
+#include "abstract/scheduling_decision.h"
 #include "alg/scheduler.h"
 #include "alg/fcfs.h"
 
@@ -40,6 +41,8 @@ int main(int argc, char** argv) {
     // additional events to the queue. For example, if you encounter a
     // THREAD_COMPLETED event, you might add a new one for DISPATCHER_INVOKED.
     Scheduler* scheduler = new FcfsScheduler();
+    scheduler->enqueue(event, event->thread);
+    SchedulingDecision* sd = scheduler->get_next_thread(event);
     
     cout << "At time " << event->time << ":" << endl;
     cout << "    " << event_type_str(event->type) << endl;
