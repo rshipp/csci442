@@ -76,34 +76,33 @@ struct Thread {
 
 
   /**
-   *  * Sets the thread to ready.
-   *   */
+   * Sets the thread to ready.
+   */
   void set_ready(size_t time);
 
   /**
-   *  * Sets the thread to running. Also records the start time if this is
-   *  the
-   *   * first time the thread has run.
-   *    */
+   * Sets the thread to running. Also records the start time if this is the
+   * first time the thread has run.
+   */
   void set_running(size_t time);
 
   /**
-   *  * Sets the thread to blocked, waiting on IO.
-   *   */
+   * Sets the thread to blocked, waiting on IO.
+   */
   void set_blocked(size_t time);
 
   /**
-   *  * Sets the thread to finished.
-   *   */
+   * Sets the thread to finished.
+   */
   void set_finished(size_t time);
 
   /**
-   *  * Returns the response time for this thread.
-   *   */
+   * Returns the response time for this thread.
+   */
   size_t response_time() const;
 
   /**
-   *  * Returns the turnaround time for this thread.
-   *   */
+   * Returns the turnaround time for this thread.
+   */
   size_t turnaround_time() const;
 };
