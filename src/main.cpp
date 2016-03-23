@@ -2,9 +2,11 @@
 #include <queue>
 #include "utils/flags.h"
 #include "utils/config.h"
+#include "utils/logger.h"
 #include "abstract/event.h"
 #include "abstract/process.h"
 #include "abstract/scheduling_decision.h"
+#include "alg/simulation.h"
 #include "alg/scheduler.h"
 #include "alg/fcfs.h"
 
@@ -26,6 +28,11 @@ int main(int argc, char** argv) {
     }
   }
 
+  Scheduler* scheduler = new FcfsScheduler();
+  Logger* logger = new Logger(false, false);
+  Simulation* simulation = new Simulation(scheduler, *logger);
+  simulation->run(events);
+
   // Print the queue
   // NOTE: The queue is destroyed at this time, so do this last.
   while (!events.empty()) {
@@ -40,9 +47,6 @@ int main(int argc, char** argv) {
     // based on the type of the event. When handling an event, you might add
     // additional events to the queue. For example, if you encounter a
     // THREAD_COMPLETED event, you might add a new one for DISPATCHER_INVOKED.
-    Scheduler* scheduler = new FcfsScheduler();
-    scheduler->enqueue(event, event->thread);
-    SchedulingDecision* sd = scheduler->get_next_thread(event);
     
     cout << "At time " << event->time << ":" << endl;
     cout << "    " << event_type_str(event->type) << endl;
