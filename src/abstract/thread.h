@@ -1,28 +1,29 @@
 #pragma once
 #include "burst.h"
 #include <queue>
+#include <stddef.h>
 
 
 // Forward declaration. This is needed if your Thread and Process classes keep
 // pointers to each other, to break the circular dependency for the compiler.
 struct Process;
 
-/**
- * Represents valid states in which threads / processes can exist.
- */
-enum State {
-  NEW,
-  READY,
-  RUNNING,
-  BLOCKED,
-  EXIT
-};
-
 
 /**
  * Represents a thread of execution, with one or more CPU + I/O bursts.
  */
 struct Thread {
+  /**
+   * Represents valid states in which threads / processes can exist.
+   */
+  enum State {
+    NEW,
+    READY,
+    RUNNING,
+    BLOCKED,
+    EXIT
+  };
+
   /**
    * The ID of this thread
    */

@@ -1,6 +1,9 @@
+#pragma once
 #include <queue>
 #include "abstract/event.h"
-#include "common.h"
+#include "abstract/thread.h"
+#include "abstract/scheduling_decision.h"
+#include "scheduler.h"
 
 //Results run_fcfs(priority_queue<Event*, vector<const Event*>, EventComparator> events);
 /**
@@ -11,4 +14,8 @@ public:
   virtual SchedulingDecision* get_next_thread(const Event* event) override;
 
   virtual void enqueue(const Event* event, Thread* thread) override;
+
+private:
+  std::queue<Thread*> threads;
+
 };

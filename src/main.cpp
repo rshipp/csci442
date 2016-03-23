@@ -4,6 +4,8 @@
 #include "utils/config.h"
 #include "abstract/event.h"
 #include "abstract/process.h"
+#include "alg/scheduler.h"
+#include "alg/fcfs.h"
 
 using namespace std;
 
@@ -37,7 +39,7 @@ int main(int argc, char** argv) {
     // based on the type of the event. When handling an event, you might add
     // additional events to the queue. For example, if you encounter a
     // THREAD_COMPLETED event, you might add a new one for DISPATCHER_INVOKED.
-
+    Scheduler* scheduler = new FcfsScheduler();
     
     cout << "At time " << event->time << ":" << endl;
     cout << "    " << event_type_str(event->type) << endl;

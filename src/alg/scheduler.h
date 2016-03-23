@@ -1,3 +1,8 @@
+#pragma once
+#include "abstract/scheduling_decision.h"
+#include "abstract/event.h"
+#include "abstract/thread.h"
+
 /**
  * Abstract base class (interface) for all scheduling algorithms.
  */
