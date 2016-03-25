@@ -32,6 +32,13 @@ struct Process {
    * All threads belonging to this process (as pointers).
    */
   std::vector<Thread*> threads;
+
+  /**
+   * Compare processes
+   */
+  inline bool operator==(const Process* process) {
+    return pid == process->pid;
+  }
 };
 
 std::string process_type_str(ProcessType num);
