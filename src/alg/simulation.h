@@ -30,7 +30,7 @@ private:
 
 // CLASS INSTANCE VARIABLES
 private:
-    Thread* active_thread;
+    Thread* active_thread = nullptr;
     Scheduler* scheduler;
     Logger logger;
     std::priority_queue<Event*, std::vector<const Event*>, EventComparator> events;
