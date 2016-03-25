@@ -56,7 +56,7 @@ void Simulation::handle_thread_arrived(const Event* event) {
     events.push(new Event(Event::DISPATCHER_INVOKED, event->time, active_thread));
   }
 
-  logger.print_state_transition(event, Thread::NEW, Thread::READY);
+  logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
 
 void Simulation::handle_dispatcher_invoked(const Event* event) {
@@ -91,6 +91,8 @@ void Simulation::handle_thread_dispatch_completed(const Event* event) {
   } else {
     events.push(new Event(Event::CPU_BURST_COMPLETED, event->time, active_thread));
   }
+
+  logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
 
 void Simulation::handle_process_dispatch_completed(const Event* event) {
@@ -119,6 +121,8 @@ void Simulation::handle_thread_preempted(const Event* event) {
   // Enqueue
 
   // Decrease CPU burst
+
+  logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
 
 void Simulation::handle_io_burst_completed(const Event* event) {
@@ -132,8 +136,11 @@ void Simulation::handle_io_burst_completed(const Event* event) {
   if (!active_thread) {
     events.push(new Event(Event::DISPATCHER_INVOKED, event->time, active_thread));
   }
+
+  logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
 
 void Simulation::handle_thread_completed(const Event* event) {
   event->thread->set_finished(event->time);
+  logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
