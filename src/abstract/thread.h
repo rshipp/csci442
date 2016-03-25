@@ -1,6 +1,8 @@
 #pragma once
 #include "burst.h"
 #include <queue>
+#include <vector>
+#include <string>
 #include <stddef.h>
 
 
@@ -13,6 +15,9 @@ struct Process;
  * Represents a thread of execution, with one or more CPU + I/O bursts.
  */
 struct Thread {
+
+  Thread();
+
   /**
    * Represents valid states in which threads / processes can exist.
    */
@@ -23,6 +28,8 @@ struct Thread {
     BLOCKED,
     EXIT
   };
+
+  std::vector<std::string> StateString;
 
   /**
    * The ID of this thread

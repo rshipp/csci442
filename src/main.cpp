@@ -48,11 +48,6 @@ int main(int argc, char** argv) {
     // additional events to the queue. For example, if you encounter a
     // THREAD_COMPLETED event, you might add a new one for DISPATCHER_INVOKED.
     
-    cout << "At time " << event->time << ":" << endl;
-    cout << "    " << event_type_str(event->type) << endl;
-    cout << "    Thread " << event->thread->id << " in process " << event->thread->process->pid << " [" << process_type_str(event->thread->process->type) << "]" << endl;
-    cout << "    Transitioned from NEW to READY" << endl;
-    cout << endl;
   }
   return 0;
 }

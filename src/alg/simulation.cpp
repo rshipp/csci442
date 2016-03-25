@@ -55,6 +55,8 @@ void Simulation::handle_thread_arrived(const Event* event) {
     // implemented in a different method (e.g. handle_dispatcher_invoked).
     events.push(new Event(Event::DISPATCHER_INVOKED, event->time, active_thread));
   }
+
+  logger.print_state_transition(event, Thread::NEW, Thread::READY);
 }
 
 void Simulation::handle_dispatcher_invoked(const Event* event) {

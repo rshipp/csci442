@@ -2,6 +2,16 @@
 
 using namespace std;
 
+Thread::Thread() {
+ StateString = {
+    "NEW",
+    "READY",
+    "RUNNING",
+    "BLOCKED",
+    "EXIT"
+  };
+}
+
 /**
  * Sets the thread to ready.
  */
