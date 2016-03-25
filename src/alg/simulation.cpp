@@ -142,5 +142,6 @@ void Simulation::handle_io_burst_completed(const Event* event) {
 
 void Simulation::handle_thread_completed(const Event* event) {
   event->thread->set_finished(event->time);
+  events.push(new Event(Event::DISPATCHER_INVOKED, event->time, active_thread));
   logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
