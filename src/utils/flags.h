@@ -2,8 +2,8 @@
 #include <string>
 
 struct Options {
-  bool verbose;
-  bool per_thread;
+  bool verbose = false;
+  bool per_thread = false;
   std::string algorithm;
   std::string in_file;
 };

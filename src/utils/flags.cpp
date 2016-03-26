@@ -9,7 +9,7 @@ Options parse_args(int argc, char **argv) {
   int c;
   int digit_optind = 0;
 
-  Options options; 
+  Options options;
   string sarg;
 
   while (1) {
