@@ -9,6 +9,7 @@
 #include "alg/simulation.h"
 #include "alg/scheduler.h"
 #include "alg/fcfs.h"
+#include "alg/rr.h"
 
 using namespace std;
 
