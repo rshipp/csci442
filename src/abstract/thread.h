@@ -104,6 +104,11 @@ struct Thread {
   void set_finished(size_t time);
 
   /**
+   * Add to the service time
+   */
+  void set_cpu_finished(size_t time);
+
+  /**
    * Returns the response time for this thread.
    */
   size_t response_time() const;

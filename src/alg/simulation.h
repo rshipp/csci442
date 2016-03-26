@@ -1,6 +1,7 @@
 #pragma once
 #include "scheduler.h"
 #include "utils/logger.h"
+#include "utils/config.h"
 #include <queue>
 #include <vector>
 
@@ -8,8 +9,8 @@ class Simulation {
 // PUBLIC API METHODS
 public:
 
-  Simulation(Scheduler* scheduler, Logger logger, int thread_switch_overhead, int process_switch_overhead)
-      : scheduler(scheduler), logger(logger), thread_switch_overhead(thread_switch_overhead), process_switch_overhead(process_switch_overhead) {}
+  Simulation(Scheduler* scheduler, Logger logger, Config config)
+      : scheduler(scheduler), logger(logger), config(config) {}
 
   void run(std::priority_queue<Event*, std::vector<const Event*>, EventComparator> events_queue);
 
@@ -35,8 +36,7 @@ private:
     Thread* last_thread = nullptr;
     Scheduler* scheduler;
     Logger logger;
-    int thread_switch_overhead;
-    int process_switch_overhead;
+    Config config;
     std::priority_queue<Event*, std::vector<const Event*>, EventComparator> events;
     size_t time_slice = -1;
     size_t time;

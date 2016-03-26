@@ -41,11 +41,18 @@ void Simulation::run(priority_queue<Event*, vector<const Event*>, EventComparato
         break;
     }
   }
+
+
+  vector<Process*>::iterator p_it;
+  for(p_it = config.processes.begin(); p_it != config.processes.end(); p_it++) {
+    logger.print_process_details(*p_it);
+  }
+  cout << "SIMULATION COMPLETED!\n" << endl;
 }
 
 void Simulation::handle_thread_arrived(const Event* event) {
   // Corresponds to 'Set ready' in flow chart
-  event->thread->set_ready(event->time);
+  event->thread->set_ready(0);
 
   // Corresponds to 'Enqueue' in flow chart
   scheduler->enqueue(event, event->thread);
@@ -64,10 +71,6 @@ void Simulation::handle_dispatcher_invoked(const Event* event) {
   // Get scheduling decision
   SchedulingDecision* sd = scheduler->get_next_thread(event);
   time_slice = sd->time_slice;
-  /*
-  if (active_thread) {
-    last_thread = active_thread;
-  }*/
   // Set current thread
   active_thread = sd->thread;
 
@@ -75,12 +78,12 @@ void Simulation::handle_dispatcher_invoked(const Event* event) {
   // If we made a decision, do a process or thread switch
   if (active_thread && last_thread) {
     if (active_thread->process == last_thread->process) {
-      new_event = new Event(Event::THREAD_DISPATCH_COMPLETED, event->time + thread_switch_overhead, active_thread);
+      new_event = new Event(Event::THREAD_DISPATCH_COMPLETED, event->time + config.thread_switch_overhead, active_thread);
     } else {
-      new_event = new Event(Event::PROCESS_DISPATCH_COMPLETED, event->time + process_switch_overhead, active_thread);
+      new_event = new Event(Event::PROCESS_DISPATCH_COMPLETED, event->time + config.process_switch_overhead, active_thread);
     }
   } else if (active_thread) {
-    new_event = new Event(Event::PROCESS_DISPATCH_COMPLETED, event->time + process_switch_overhead, active_thread);
+    new_event = new Event(Event::PROCESS_DISPATCH_COMPLETED, event->time + config.process_switch_overhead, active_thread);
   }
 
   if (active_thread) {
@@ -118,6 +121,7 @@ void Simulation::handle_process_dispatch_completed(const Event* event) {
 
 void Simulation::handle_cpu_burst_completed(const Event* event) {
   // Pop burst
+  size_t time = event->thread->bursts.front()->length;
   event->thread->bursts.pop();
 
   // Unset current thread, invoke dispatcher
@@ -127,9 +131,10 @@ void Simulation::handle_cpu_burst_completed(const Event* event) {
 
   if (event->thread->bursts.empty()) {
     // Last burst
+    event->thread->set_cpu_finished(time);
     events.push(new Event(Event::THREAD_COMPLETED, event->time, event->thread));
   } else {
-    event->thread->set_blocked(event->time + event->thread->bursts.front()->length);
+    event->thread->set_blocked(time);
     events.push(new Event(Event::IO_BURST_COMPLETED, event->time + event->thread->bursts.front()->length, event->thread));
     logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
   }
@@ -138,7 +143,7 @@ void Simulation::handle_cpu_burst_completed(const Event* event) {
 
 void Simulation::handle_thread_preempted(const Event* event) {
   // Set ready
-  event->thread->set_ready(event->time);
+  event->thread->set_ready(time_slice);
   // Enqueue
   scheduler->enqueue(event, event->thread);
   // Decrease CPU burst
@@ -152,7 +157,7 @@ void Simulation::handle_thread_preempted(const Event* event) {
 
 void Simulation::handle_io_burst_completed(const Event* event) {
   // Set ready
-  event->thread->set_ready(event->time);
+  event->thread->set_ready(event->thread->bursts.front()->length);
   // Enqueue
   scheduler->enqueue(event, event->thread);
   // Pop burst

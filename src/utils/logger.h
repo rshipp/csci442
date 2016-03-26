@@ -2,6 +2,7 @@
 #include "abstract/process.h"
 #include "abstract/event.h"
 #include "abstract/thread.h"
+#include "system_stats.h"
 
 class Logger {
 public:
@@ -18,14 +19,6 @@ public:
       const Event* event,
       Thread::State before_state,
       Thread::State after_state) const;
-
-  /**
-   * Outputs a message if 'verbose' is true.
-   */
-  void print_verbose(
-      const Event* event,
-      Thread* thread,
-      std::string message) const;
 
   /**
    * If 'per_thread' is set to true, outputs detailed information about a

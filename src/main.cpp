@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     scheduler = new FcfsScheduler();
   }
   Logger* logger = new Logger(options.verbose, options.per_thread);
-  Simulation* simulation = new Simulation(scheduler, *logger, config.thread_switch_overhead, config.process_switch_overhead);
+  Simulation* simulation = new Simulation(scheduler, *logger, config);
 
   // Run
   simulation->run(events);

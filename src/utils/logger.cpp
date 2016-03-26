@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "logger.h"
 
 using namespace std;
@@ -19,4 +20,19 @@ void Logger::print_state_transition(
     }
     cout << endl;
   }
+}
+
+void Logger::print_process_details(Process* process) const {
+  cout << "Process " << process->pid << " [" << process_type_str(process->type) << "]:" << endl;
+  vector<Thread*>::iterator t_it;
+  for(t_it = process->threads.begin(); t_it != process->threads.end(); t_it++) {
+    cout << "    Thread " << (*t_it)->id << ":  " <<
+            "ARR: " << setw(7) << left << (*t_it)->arrival_time <<
+            "CPU: " << setw(7) << left << (*t_it)->service_time <<
+            "I/O: " << setw(7) << left << (*t_it)->io_time <<
+            "TRT: " << setw(7) << left << (*t_it)->turnaround_time() <<
+            "END: " << setw(7) << left << (*t_it)->end_time <<
+        endl;
+  }
+  cout << endl;
 }
