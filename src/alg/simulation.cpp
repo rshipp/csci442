@@ -52,7 +52,6 @@ void Simulation::handle_thread_arrived(const Event* event) {
 
   // If the processor is currently idle, dispatch the thread.
   if (!active_thread) {
-    cout << "here" << event->time << endl;
     // Add a new event to the queue; subsequent logic in the flow chart would then be
     // implemented in a different method (e.g. handle_dispatcher_invoked).
     events.push(new Event(Event::DISPATCHER_INVOKED, event->time, event->thread));
@@ -64,9 +63,10 @@ void Simulation::handle_thread_arrived(const Event* event) {
 void Simulation::handle_dispatcher_invoked(const Event* event) {
   // Get scheduling decision
   SchedulingDecision* sd = scheduler->get_next_thread(event);
+  /*
   if (active_thread) {
     last_thread = active_thread;
-  }
+  }*/
   // Set current thread
   active_thread = sd->thread;
 
@@ -101,6 +101,9 @@ void Simulation::handle_dispatch_completed(const Event* event) {
     events.push(new Event(Event::CPU_BURST_COMPLETED, event->time + event->thread->bursts.front()->length, event->thread));
   }
 
+  // Set last thread = current thread
+  last_thread = active_thread;
+
   logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
 
@@ -125,10 +128,11 @@ void Simulation::handle_cpu_burst_completed(const Event* event) {
     // Last burst
     events.push(new Event(Event::THREAD_COMPLETED, event->time, event->thread));
   } else {
+    event->thread->set_blocked(event->time + event->thread->bursts.front()->length);
     events.push(new Event(Event::IO_BURST_COMPLETED, event->time + event->thread->bursts.front()->length, event->thread));
+    logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
   }
 
-  logger.print_state_transition(event, event->thread->current_state, event->thread->current_state);
 }
 
 void Simulation::handle_thread_preempted(const Event* event) {
