@@ -10,6 +10,7 @@
 #include "alg/scheduler.h"
 #include "alg/fcfs.h"
 #include "alg/rr.h"
+#include "alg/priority.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  Scheduler* scheduler = new RoundRobinScheduler();
+  Scheduler* scheduler = new PriorityScheduler();
   Logger* logger = new Logger(false, false);
   Simulation* simulation = new Simulation(scheduler, *logger, config.thread_switch_overhead, config.process_switch_overhead);
   simulation->run(events);
