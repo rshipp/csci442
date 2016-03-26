@@ -11,6 +11,7 @@
 #include "alg/fcfs.h"
 #include "alg/rr.h"
 #include "alg/priority.h"
+#include "alg/custom.h"
 
 using namespace std;
 
@@ -37,7 +38,7 @@ int main(int argc, char** argv) {
   } else if (options.algorithm == "PRIORITY") {
     scheduler = new PriorityScheduler();
   } else if (options.algorithm == "CUSTOM") {
-    scheduler = new PriorityScheduler();
+    scheduler = new CustomScheduler();
   } else {
     // Default to fcfs
     scheduler = new FcfsScheduler();
