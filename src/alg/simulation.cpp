@@ -137,10 +137,16 @@ void Simulation::handle_cpu_burst_completed(const Event* event) {
 
 void Simulation::handle_thread_preempted(const Event* event) {
   // Set ready
-  
+  event->thread->set_ready(event->time);
   // Enqueue
-
+  scheduler->enqueue(event, event->thread);
   // Decrease CPU burst
+  event->thread->bursts.front()->length = event->thread->bursts.front()->length - time_slice;
+
+  // Invoke dispatcher
+  if (!active_thread) {
+    events.push(new Event(Event::DISPATCHER_INVOKED, event->time, event->thread));
+  }
 
   logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }
