@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 
   // Add events to the queue
   priority_queue<Event*, vector<const Event*>, EventComparator> events;
-  
+
   vector<Process*>::iterator p_it;
   for(p_it = config.processes.begin(); p_it != config.processes.end(); p_it++) {
     vector<Thread*>::iterator t_it;
@@ -30,9 +30,22 @@ int main(int argc, char** argv) {
     }
   }
 
-  Scheduler* scheduler = new PriorityScheduler();
-  Logger* logger = new Logger(false, false);
+  // Set up simulation
+  Scheduler* scheduler;
+  if (options.algorithm == "RR") {
+    scheduler = new RoundRobinScheduler();
+  } else if (options.algorithm == "PRIORITY") {
+    scheduler = new PriorityScheduler();
+  } else if (options.algorithm == "CUSTOM") {
+    scheduler = new PriorityScheduler();
+  } else {
+    // Default to fcfs
+    scheduler = new FcfsScheduler();
+  }
+  Logger* logger = new Logger(options.verbose, options.per_thread);
   Simulation* simulation = new Simulation(scheduler, *logger, config.thread_switch_overhead, config.process_switch_overhead);
+
+  // Run
   simulation->run(events);
 
   return 0;
