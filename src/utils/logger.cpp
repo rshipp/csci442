@@ -11,6 +11,10 @@ void Logger::print_state_transition(
   cout << "At time " << event->time << ":" << endl;
   cout << "    " << event_type_str(event->type) << endl;
   cout << "    Thread " << event->thread->id << " in process " << event->thread->process->pid << " [" << process_type_str(event->thread->process->type) << "]" << endl;
-  cout << "    Transitioned from " << event->thread->StateString[before_state] << " to " << event->thread->StateString[after_state] << endl;
+  if (event->scheduling_decision) {
+    cout << "    " << event->scheduling_decision->explanation << endl;
+  } else {
+    cout << "    Transitioned from " << event->thread->StateString[before_state] << " to " << event->thread->StateString[after_state] << endl;
+  }
   cout << endl;
 }

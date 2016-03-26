@@ -71,7 +71,7 @@ struct Event {
   /**
    * The associated scheduling decision, if any.
    */
-  const SchedulingDecision* scheduling_decision;
+  const SchedulingDecision* scheduling_decision = nullptr;
 
   /**
    * Creates an event

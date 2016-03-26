@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 
   Scheduler* scheduler = new FcfsScheduler();
   Logger* logger = new Logger(false, false);
-  Simulation* simulation = new Simulation(scheduler, *logger);
+  Simulation* simulation = new Simulation(scheduler, *logger, config.thread_switch_overhead, config.process_switch_overhead);
   simulation->run(events);
 
   // Print the queue
