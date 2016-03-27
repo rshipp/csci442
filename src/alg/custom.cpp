@@ -8,7 +8,7 @@ using namespace std;
 
 SchedulingDecision* CustomScheduler::get_next_thread(const Event* event) {
   SchedulingDecision* sd = new SchedulingDecision();
-  sd->time_slice = 3;
+  sd->time_slice = 8;
   if (!queue0.empty()) {
     sd->thread = queue0.front();
     sd->explanation = "Selected from " + to_string(queue0.size()) + " threads in queue0; will run to completion of burst, or preemption";
