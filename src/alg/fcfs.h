@@ -5,7 +5,6 @@
 #include "abstract/scheduling_decision.h"
 #include "scheduler.h"
 
-//Results run_fcfs(priority_queue<Event*, vector<const Event*>, EventComparator> events);
 /**
  * A representation of a scheduling queue that uses first-come, first-served.
  */

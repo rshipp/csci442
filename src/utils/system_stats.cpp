@@ -1,4 +1,3 @@
-#pragma once
 #include "config.h"
 #include "system_stats.h"
 #include "abstract/process.h"
