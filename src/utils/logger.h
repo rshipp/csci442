@@ -29,7 +29,7 @@ public:
   /**
    * Print overall statistics for the simulation.
    */
-  //void print_statistics(SystemStats stats) const;
+  void print_statistics(SystemStats stats) const;
 
 private:
 

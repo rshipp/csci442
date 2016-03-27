@@ -21,6 +21,8 @@ void Thread::set_ready(size_t time) {
   current_state = READY;
   if (previous_state == BLOCKED) {
     io_time += time;
+  } else if (previous_state == RUNNING) {
+    service_time += time;
   }
 }
 
@@ -72,7 +74,7 @@ void Thread::set_cpu_finished(size_t time) {
  * Returns the response time for this thread.
  */
 size_t Thread::response_time() const {
-
+  return start_time - arrival_time;
 }
 
 /**

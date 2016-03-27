@@ -38,3 +38,35 @@ void Logger::print_process_details(Process* process) const {
     cout << endl;
   }
 }
+
+void Logger::print_statistics(SystemStats stats) const {
+  cout << setw(28) << left << "SYSTEM THREADS:" << "\n" <<
+          setw(28) << left << "    Total count:" << setw(6) << right << stats.system_thread_count() << "\n" <<
+          setw(28) << left << "    Avg response time:" << setw(6) << right << fixed << setprecision(2) << stats.system_response_time() << "\n" <<
+          setw(28) << left << "    Avg turnaround time:" << setw(6) << right << stats.system_turnaround_time() << "\n" <<
+          "\n" <<
+          setw(28) << left << "INTERACTIVE THREADS:" << "\n" <<
+          setw(28) << left << "    Total count:" << setw(6) << right << stats.interactive_thread_count() << "\n" <<
+          setw(28) << left << "    Avg response time:" << setw(6) << right << stats.interactive_response_time() << "\n" <<
+          setw(28) << left << "    Avg turnaround time:" << setw(6) << right << stats.interactive_turnaround_time() << "\n" <<
+          "\n" <<
+          setw(28) << left << "NORMAL THREADS:" << "\n" <<
+          setw(28) << left << "    Total count:"  << setw(6) << right << stats.normal_thread_count() << "\n" <<
+          setw(28) << left << "    Avg response time:" << setw(6) << right << stats.normal_response_time() << "\n" <<
+          setw(28) << left << "    Avg turnaround time:" << setw(6) << right << stats.normal_turnaround_time() << "\n" <<
+          "\n" <<
+          setw(28) << left << "BATCH THREADS:" << "\n" <<
+          setw(28) << left << "    Total count:" << setw(6) << right << stats.batch_thread_count() << "\n" <<
+          setw(28) << left << "    Avg response time:" << setw(6) << right << stats.batch_response_time() << "\n" <<
+          setw(28) << left << "    Avg turnaround time:" << setw(6) << right << stats.batch_turnaround_time() << "\n" <<
+          "\n" <<
+          setw(28) << left << "Total elapsed time:" << setw(6) << right << stats.total_time() << "\n" <<
+          setw(28) << left << "Total service time:" << setw(6) << right << stats.service_time() << "\n" <<
+          setw(28) << left << "Total I/O time:" << setw(6) << right << stats.io_time() << "\n" <<
+          setw(28) << left << "Total dispatch time:" << setw(6) << right << stats.dispatch_time() << "\n" <<
+          setw(28) << left << "Total idle time:" << setw(6) << right << stats.idle_time() << "\n" <<
+          "\n" <<
+          setw(28) << left << "CPU utilization:" << setw(6) << right << stats.cpu_utilization() << "%" << "\n" <<
+          setw(28) << left << "CPU efficiency:" << setw(6) << right << stats.cpu_efficiency() << "%" << "\n" <<
+	      endl;
+}

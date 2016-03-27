@@ -6,6 +6,8 @@ using namespace std;
 
 void Simulation::run(priority_queue<Event*, vector<const Event*>, EventComparator> events_queue) {
 
+  stats = new SystemStats(config);
+
   events = events_queue;
   // While their are still events to process, invoke the corresponding methods
   // to handle them.
@@ -48,6 +50,7 @@ void Simulation::run(priority_queue<Event*, vector<const Event*>, EventComparato
     logger.print_process_details(*p_it);
   }
   cout << "SIMULATION COMPLETED!\n" << endl;
+  logger.print_statistics(*stats);
 }
 
 void Simulation::handle_thread_arrived(const Event* event) {
@@ -112,10 +115,12 @@ void Simulation::handle_dispatch_completed(const Event* event) {
 }
 
 void Simulation::handle_thread_dispatch_completed(const Event* event) {
+  stats->dispatch += config.thread_switch_overhead;
   handle_dispatch_completed(event);
 }
 
 void Simulation::handle_process_dispatch_completed(const Event* event) {
+  stats->dispatch += config.process_switch_overhead;
   handle_dispatch_completed(event);
 }
 
@@ -177,6 +182,8 @@ void Simulation::handle_thread_completed(const Event* event) {
     last_thread = active_thread;
     active_thread = nullptr;
   }
-  //events.push(new Event(Event::DISPATCHER_INVOKED, event->time, event->thread));
+
+  stats->time = event->time;
+
   logger.print_state_transition(event, event->thread->previous_state, event->thread->current_state);
 }

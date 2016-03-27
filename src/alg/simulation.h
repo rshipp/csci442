@@ -2,6 +2,7 @@
 #include "scheduler.h"
 #include "utils/logger.h"
 #include "utils/config.h"
+#include "utils/system_stats.h"
 #include <queue>
 #include <vector>
 
@@ -37,6 +38,7 @@ private:
     Scheduler* scheduler;
     Logger logger;
     Config config;
+    SystemStats* stats;
     std::priority_queue<Event*, std::vector<const Event*>, EventComparator> events;
     size_t time_slice = -1;
     size_t time;
