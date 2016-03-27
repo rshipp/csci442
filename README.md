@@ -83,4 +83,15 @@ The custom algorithm is an implementation of a multilevel feedback queue
 scheduler (MLFQ). It contains six queues, and uses preemption with a time
 slice of 8. Each time a thread is preempted, it is moved to a lower priority
 queue, until it reaches the bottom and is moved back to the first queue
-(assuming it remains through that many preemptions).
+(assuming it remains through that many preemptions). Processes are initially
+added to a queue based on their priority, giving higher priority processes
+first access to the CPU. The algorithm attempts to optimize throughput for
+I/O bound processes, and gives preference to shorter jobs. Long processes
+sink down the six queues as they continue to be preempted and demoted.
+Assuming a constant stream of processes, starvation is not possible in this
+algorithm - it functions similarly to round robin, as processes eventually
+cycle up from the sixth queue to the first. The algorithm tries to be fair,
+meaning it will eventually give equal CPU time to each process. Shorter
+processes may finish quickly before being preempted, but longer
+processes are also given time slices until they finish, with even higher
+priority threads being demoted just as lower priority threads are.
