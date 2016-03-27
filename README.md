@@ -76,3 +76,11 @@ src/utils/system_stats.h
   * How do you make use of the required number of queues?
   * Assuming a constant stream of processes, is starvation possible in your algorithm?
   * Is your algorithm fair? What does that even mean?
+
+## Custom Algorithm
+
+The custom algorithm is an implementation of a multilevel feedback queue
+scheduler (MLFQ). It contains six queues, and uses preemption with a time
+slice of 8. Each time a thread is preempted, it is moved to a lower priority
+queue, until it reaches the bottom and is moved back to the first queue
+(assuming it remains through that many preemptions).
