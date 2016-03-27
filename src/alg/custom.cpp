@@ -1,6 +1,7 @@
 #include "abstract/scheduling_decision.h"
 #include "abstract/event.h"
 #include "abstract/thread.h"
+#include "abstract/process.h"
 #include "custom.h"
 #include <stddef.h>
 
@@ -40,6 +41,7 @@ SchedulingDecision* CustomScheduler::get_next_thread(const Event* event) {
 void CustomScheduler::enqueue(const Event* event, Thread* thread) {
   int queue;
   if (thread_map.count(thread)) {
+    // Thread already seen
     if (event->type == Event::THREAD_PREEMPTED) {
       if (thread_map[thread] < max_queue) {
         queue = thread_map[thread] + 1;
@@ -50,7 +52,21 @@ void CustomScheduler::enqueue(const Event* event, Thread* thread) {
       queue = thread_map[thread];
     }
   } else {
-    queue = 0;
+    // Newly added thread
+    switch(thread->process->type) {
+      case SYSTEM:
+        queue = 0;
+        break;
+      case INTERACTIVE:
+        queue = 1;
+        break;
+      case NORMAL:
+        queue = 2;
+        break;
+      case BATCH:
+        queue = 3;
+        break;
+    }
   }
 
   thread_map[thread] = queue;
