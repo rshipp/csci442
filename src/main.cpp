@@ -1,7 +1,7 @@
 /**
  * This file contains the main() function that drives the simulation. You'll
- * need to add logic to this file to create a Simulation instance and start
- * invoke its run() method.
+ * need to add logic to this file to create a Simulation instance and invoke its
+ * run() method.
  */
 
 #include <cstdlib>
