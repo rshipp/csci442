@@ -160,7 +160,7 @@ bool parse_flags(initializer_list<string> arg_list, FlagOptions& flags) {
 
   args.insert(args.begin(), "binary-name");
 
-  for (int i = 0; i < args.size(); i++) {
+  for (size_t i = 0; i < args.size(); i++) {
     argv.push_back((char*) args[i].c_str());
   }
 

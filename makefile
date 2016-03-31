@@ -83,11 +83,11 @@ bin/%.o: src/%.cpp
 	$(CXX) $(CPPFLAGS) $< -c -o $@
 
 # Build gtest_main.a.
-bin/gtest-all.o: $(GTEST_SRCS_) | bin
+bin/gtest-all.o: $(GTEST_HEADERS) | bin
 	$(CXX) $(TEST_CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc -o $@
 
-bin/gtest_main.o: $(GTEST_SRCS_) | bin
+bin/gtest_main.o: $(GTEST_HEADERS) | bin
 	$(CXX) $(TEST_CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc -o $@
 
