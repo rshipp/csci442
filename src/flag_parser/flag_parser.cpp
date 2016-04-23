@@ -58,7 +58,7 @@ bool parse_flags(int argc, char** argv, FlagOptions& flags) {
      switch (c) {
      case 'h':
          print_usage();
-         break;
+         exit(EXIT_SUCCESS);
 
      case 'v':
          flags.verbose = true;

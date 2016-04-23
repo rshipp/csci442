@@ -7,8 +7,10 @@
 
 #pragma once
 #include "process/process.h"
+#include "frame/frame.h"
 #include "virtual_address/virtual_address.h"
 #include <cstdlib>
+#include <vector>
 
 
 /**
@@ -50,4 +52,5 @@ private:
 // INSTANCE VARIABLES
 private:
 
+  std::vector<Frame*> memory;
 };
