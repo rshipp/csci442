@@ -7,6 +7,9 @@ GolfCourse::GolfCourse()  {
   for (size_t i = 0; i < 18; i++) {
     // TODO: This is where you will initialize your barriers, condition
     // variables, and any other shared variables or synchronization primitives.
+
+    hole_barriers.push_back(new boost::barrier(4));
+    hole_cndvars.push_back(new boost::condition_variable());
   }
 }
 

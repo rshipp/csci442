@@ -1,6 +1,8 @@
 #pragma once
 #include <boost/thread/xtime.hpp>
+#include <boost/thread/barrier.hpp>
 #include <vector>
+#include <map>
 
 
 class GolfCourse {
@@ -30,4 +32,12 @@ public:
    * finish the course.
    */
   std::vector<boost::xtime> turnaround_times;
+
+  std::vector<boost::barrier*> hole_barriers;
+
+  std::vector<boost::condition_variable*> hole_cndvars;
+
+  std::map<int, boost::barrier*> party_barriers;
+
+  size_t players = 0;
 };

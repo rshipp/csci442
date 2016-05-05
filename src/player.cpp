@@ -33,6 +33,11 @@ Player::Player(
       random_number_generator,
       boost::lognormal_distribution<>(mean, sigma));
 
+  // If there isn't a party barrier, add it
+  if (golf_course->party_barriers.count(party_id) == 0) {
+    golf_course->party_barriers[party_id] = new boost::barrier(4);
+  }
+
   atomic_output(
       format("+++++ Player #%d (%s) added to party %d")
           % id
@@ -68,6 +73,11 @@ void Player::play_course() {
 void Player::play_hole(size_t hole) {
   // This is the function where you will spend the most effort. I left a few
   // fragments from my solution, but it will need lots of modification.
+
+  // Wait for other players
+  if (golf_course->party_barriers[party_id]->wait()) {
+    announce_playing(hole);
+  }
 
   if (DEBUG) {
     atomic_output(
