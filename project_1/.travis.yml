@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.2.4
+install: 
+  - gem install rspec open4
+  - make
+  - git clone https://github.com/csm-csci442/project-1-specs.git
+script: 
+  - SHELL_DIR=$(pwd) rspec project-1-specs/spec/shell_spec.rb -c -fd
