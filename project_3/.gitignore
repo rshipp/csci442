@@ -1,0 +1,4 @@
+simulator
+*.dSYM
+*.gch
+bin/
